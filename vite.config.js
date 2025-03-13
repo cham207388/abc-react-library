@@ -13,12 +13,19 @@ export default defineConfig({
       fileName: (format) => `index.${format === "es" ? "esm" : "cjs"}.js`,
     },
     rollupOptions: {
-      external: ["react", "react-dom", "@mui/material", "prop-types"],
+      external: [
+        "react",
+        "react-dom",
+        "@mui/material",
+        "prop-types",
+        "react-router-dom",
+      ],
       output: {
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
           "prop-types": "PropTypes",
+          "react-router-dom": "ReactRouterDOM",
         },
       },
     },

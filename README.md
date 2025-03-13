@@ -1,12 +1,68 @@
-# React + Vite
+# React Notes
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## install
 
-Currently, two official plugins are available:
+```bash
+npm install abc-react-library
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## use SignInForm
 
-## Expanding the ESLint configuration
+```jsx
+import { SignInForm } from "abc-react-library";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom"
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+const SignIn = () => {
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogin = async (email, password) => {
+    await login(email, password, navigate); // Call your existing login function
+  };
+
+  const handleSuccess = () => {
+    navigate("/")
+  }
+
+  return <SignInForm
+    onSubmit={handleLogin}
+    onSuccess={handleSuccess}
+    buttonText="Sign In" />;
+};
+
+export default SignIn;
+```
+
+## use SignUpForm
+
+```jsx
+import { SignUpForm } from "abc-react-library"; // Replace with your actual library name
+import api from "../api/api";
+import { useNavigate } from "react-router-dom";
+
+const SignUp = () => {
+  const navigate = useNavigate();
+
+  const handleSignUp = async (user) => {
+    try {
+      await api.post("/users", user);
+      navigate("/signin");
+    } catch (error) {
+      console.error("Registration Failed", error);
+    }
+  };
+
+  return (
+    <>
+      <SignUpForm 
+        onSubmit={handleSignUp}
+        redirectTo="/signin"
+        buttonText="Sign Up" />
+    </>
+  );
+};
+
+export default SignUp;
+```

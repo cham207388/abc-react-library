@@ -78,8 +78,11 @@ export { default as SignInForm } from "./components/SignInForm";
 
 | Command | What It Does |
 |---------|--------------|
-| `npm publish --access public` | publish to npm |
+| `rm -rf node_modules package-lock.json` <hr> `npm install` | clean up |
 | `npm version patch` <hr> requires clean git | publish to npm |
+| `npm install` | install |
+| `npm run build` | build |
+| `npm publish --access public` | publish to npm |
 | `npm view abc-react-library` | search for abc-react-library |
 | `npm install abc-react-library` | install to use |
 

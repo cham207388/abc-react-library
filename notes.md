@@ -147,3 +147,13 @@ export default defineConfig({
   }
 });
 ```
+
+## CI / CD
+
+### What You Should Do Instead
+
+All you need to do is:
+- Write conventional commits like:
+  - feat: add new InputField
+	- fix: handle button click issue
+- Push to main:

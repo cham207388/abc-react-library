@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 🚀 Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Auto-provided by GitHub
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}  # Add this in repo secrets!
+        run: npx semantic-release

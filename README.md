@@ -6,6 +6,12 @@
 npm install abc-react-library
 ```
 
+or a particular version, say version 1.0.0
+
+```bash
+npm install abc-react-library@1.0.0
+```
+
 ## use SignInForm
 
 ```jsx

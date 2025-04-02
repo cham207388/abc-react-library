@@ -153,6 +153,8 @@ export default defineConfig({
 ### What You Should Do Instead
 
 All you need to do is:
+- create npm access token
+  - setting -> access token
 - Write conventional commits like:
   - feat: add new InputField
 	- fix: handle button click issue

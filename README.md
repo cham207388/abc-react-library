@@ -54,13 +54,21 @@ const SignUp = () => {
     }
   };
 
+  // Define the fields for this specific form
+  const signUpFields = [
+    { name: "first_name", label: "First Name" },
+    { name: "last_name", label: "Last Name" },
+    { name: "email", label: "Email", type: "email" },
+    { name: "password", label: "Password", type: "password" }
+  ];
+
   return (
-    <>
-      <SignUpForm 
-        onSubmit={handleSignUp}
-        redirectTo="/signin"
-        buttonText="Sign Up" />
-    </>
+    <SignUpForm
+      fields={signUpFields}
+      onSubmit={handleSignUp}
+      redirectTo="/signin"
+      buttonText="Sign Up"
+    />
   );
 };
 

@@ -3,31 +3,43 @@ import PropTypes from "prop-types";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const SignUpForm = ({ onSubmit, redirectTo = "/signin", buttonText = "Register", sx = {} }) => {
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-    first_name: "",
-    last_name: ""
-  });
+const SignUpForm = ({
+  fields,
+  onSubmit,
+  redirectTo = "/signin",
+  buttonText = "Register",
+  sx = {}
+}) => {
+  // Initialize form state based on fields
+  const [formData, setFormData] = useState(
+    fields.reduce((acc, field) => ({ ...acc, [field.name]: "" }), {})
+  );
 
   const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(user);
+    onSubmit(formData);
   };
 
   return (
     <Box sx={{ maxWidth: 400, mx: "auto", mt: 4, ...sx }}>
       <Typography variant="h4">Sign Up</Typography>
       <form onSubmit={handleSubmit}>
-        <TextField label="First Name" name="first_name" fullWidth margin="normal" onChange={handleChange} />
-        <TextField label="Last Name" name="last_name" fullWidth margin="normal" onChange={handleChange} />
-        <TextField label="Email" name="email" fullWidth margin="normal" onChange={handleChange} />
-        <TextField label="Password" name="password" type="password" fullWidth margin="normal" onChange={handleChange} />
+        {fields.map((field) => (
+          <TextField
+            key={field.name}
+            label={field.label}
+            name={field.name}
+            type={field.type || "text"}
+            fullWidth
+            margin="normal"
+            value={formData[field.name]}
+            onChange={handleChange}
+          />
+        ))}
         <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
           {buttonText}
         </Button>
@@ -39,12 +51,18 @@ const SignUpForm = ({ onSubmit, redirectTo = "/signin", buttonText = "Register",
   );
 };
 
-// Define PropTypes for flexibility
 SignUpForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired, // Function to handle signup
-  redirectTo: PropTypes.string,        // Customizable redirect link
-  buttonText: PropTypes.string,        // Custom button text
-  sx: PropTypes.object,                // Custom styling
+  fields: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+      type: PropTypes.string
+    })
+  ).isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  redirectTo: PropTypes.string,
+  buttonText: PropTypes.string,
+  sx: PropTypes.object,
 };
 
 export default SignUpForm;

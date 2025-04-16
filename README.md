@@ -32,10 +32,19 @@ const SignIn = () => {
     navigate("/")
   }
 
+  const signInFields = [
+    { name: "email", label: "Email", type: "email", autoComplete: "email" },
+    { name: "password", label: "Password", type: "password", autoComplete: "current-password" }
+  ]
+
   return <SignInForm
+    fields={signInFields}
     onSubmit={handleLogin}
+
     onSuccess={handleSuccess}
-    buttonText="Sign In" />;
+    errorMessage="Error login in"
+    buttonText="Log In"
+  />
 };
 
 export default SignIn;

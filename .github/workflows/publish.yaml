@@ -23,7 +23,10 @@ jobs:
 
       - name: 📦 Install dependencies
         run: npm install
-
+        
+      - name: 🏗️ Build package
+        run: npm run build        
+        
       - name: 🚀 Semantic Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Auto-provided by GitHub

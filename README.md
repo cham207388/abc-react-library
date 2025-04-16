@@ -89,3 +89,7 @@ const SignUp = () => {
 
 export default SignUp;
 ```
+
+## To Publish
+
+- `git commit -m "fix: something"`
